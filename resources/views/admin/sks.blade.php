@@ -1,44 +1,9 @@
-@extends('home')
-@section('konten')
+@extends('admin/home')
 
+@section('konten')
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Surat Keterangan Sehat</h1>
-</div>
-        @if ($message = Session::get('success'))
-            <div class="alert alert-success">
-                {{ $message }}
-            </div>
-        @endif
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @elseif ($message = Session::get('berhasil_hapus'))
-            <div class="alert alert-success">
-                {{ $message }}
-            </div>
-        @endif
-
-<div class="card shadow-sm mb-3">
-    <div class="card-body">
-        <form action="uploadSks" method="post" enctype="multipart/form-data">
-            @csrf
-            <p class="text-gray-900"><strong>Upload Surat Keterangan Sehat</strong></p>
-            <div class="input-group mb-3">
-                <div class="form-group">
-                    <input type="file" name="file" class="form-control-file">
-                </div>  
-            </div>
-            <div class="form-group text-right">
-                <input class="btn btn-primary" type="submit" value="Kirim">
-            </div>
-        </form>
-    </div>
 </div>
 
 <div class="card shadow-sm">
@@ -48,6 +13,7 @@
                 <tr>
                     <th scope="col">Tanggal</th>
                     <th scope="col">Berkas</th>
+                    <th scope="col">Nama</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -56,6 +22,7 @@
                 <tr>
                     <td>{{$data->tgl}}</td>
                     <td>{{ $data->nama}}</td>
+                    <td>{{$data->nama_user}}</td>
                     <td>
                     <a class="btn btn-danger btn-sm" href="hapusSks/{{$data->id}}" role="button"><i class="fas fa-trash-alt"></i></a>
                     <a class="btn btn-primary btn-sm" data-toggle="modal" href="#view{{ $data->id}}" role="button"><i class="fas fa-eye"></i></a>
@@ -80,7 +47,7 @@
         </div>
         <div class="modal-body">
             <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="upload/sks/{{ $data->nama}}"></iframe>
+                <iframe class="embed-responsive-item" src="upload/sks/{{$data->nama}}"></iframe>
             </div>
         </div>
         <div class="modal-footer">

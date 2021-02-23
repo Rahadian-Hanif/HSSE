@@ -48,9 +48,9 @@
         <ul class="navbar-nav  sidebar sidebar-light accordion" id="accordionSidebar" style="background-color: #b2cde0;" >
 
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('admin/home') }}">
             <div class="sidebar-brand-icon">
-            <img class="img-fluid" src="img/LOGO.png" alt="">
+            <img class="img-fluid" src="{{ asset('img/LOGO.png')}}" alt="">
             </div>
         </a>
 
@@ -59,7 +59,7 @@
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/home') }}" style="color: black;"  >
+            <a class="nav-link" href="{{ url('admin/home') }}" style="color: black;"  >
             <i class="fas fa-fw fa-home" style="color: black;"></i>
             <span>Dashboard</span></a>
         </li>
@@ -74,14 +74,14 @@
 
         <!-- Nav Item - Monitoring Kesehatan -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('/monitoringKesehatan')}}">
+            <a class="nav-link" href="{{ url('adminMonitoring')}}">
             <i class="fas fa-fw fa-notes-medical" style="color: black;"></i>
             <span style="color: black;">Monitoring Kesehatan</span></a>
         </li>
 
         <!-- Nav Item - SKS -->
         <li class="nav-item">
-            <a class="nav-link" href="{{ url('sks')}}">
+            <a class="nav-link" href="{{ url('adminSks')}}">
             <i class="fas fa-fw fa-file-medical" style="color: black;"></i>
             <span style="color: black;">Surat Keterangan Sehat</span></a>
         </li>
@@ -95,8 +95,8 @@
             <div id="laporanKecelakaan" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Laporan</h6>
-                <a class="collapse-item" href="{{url('beritaAcara')}}">Berita Acara Kecelakaan</a>
-                <a class="collapse-item" href="{{url('laporanPelanggaran')}}">Pelanggaran</a>
+                <a class="collapse-item" href="{{url('adminBeritaAcara')}}">Berita Acara</a>
+                <a class="collapse-item" href="{{url('adminLaporanPelanggaran')}}">Laporan Pelanggaran</a>
             </div>
             </div>
         </li>
@@ -211,7 +211,7 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('vendor/jquery/jquery.min.js')}}"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Core plugin JavaScript-->
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.min.js')}}"></script>
