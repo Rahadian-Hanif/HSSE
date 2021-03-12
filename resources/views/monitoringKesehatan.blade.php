@@ -9,22 +9,21 @@
     <?php echo date('d M Y'); ?>
 </div>
 
-
+        @if ($message = Session::get('laporan_berhasil'))
+            <div class="alert alert-success">
+                {{ $message }}
+            </div>
+        @endif
 <form class="text-gray-900" action="submitMonitoring" method="post">
 @csrf
     @foreach ($soal as $data)
     <div class="card shadow-sm border-left-primary mb-3">
         <div class="form-group card-body">
-            @if($errors->has('{{$data->id}}'))
-                <div class="text-danger">
-                    {{ $errors->first('$data->id')}}
-                </div>
-            @endif
             <p>
             {{$loop->iteration}}. {{$data->soal}}
             </p>
-            <p><input type='radio' name='{{$data->id}}' value='Ya' /> Ya</p>
-            <p><input type='radio' name='{{$data->id}}' value='Tidak' /> Tidak</p>
+            <p><input type='radio' name='{{$data->id}}' value='Ya' required/> Ya</p>
+            <p><input type='radio' name='{{$data->id}}' value='Tidak' required/> Tidak</p>
         </div>
     </div>
     @endforeach

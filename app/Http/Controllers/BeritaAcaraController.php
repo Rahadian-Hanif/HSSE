@@ -9,6 +9,10 @@ use File;
 
 class BeritaAcaraController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('beritaAcara');
@@ -63,5 +67,14 @@ class BeritaAcaraController extends Controller
             
 
     }
+
+    public function delete($id)
+        {
+            // hapus data
+            BeritaAcara::where('id',$id)->delete();
+            
+            return back()
+            ->with('berhasil_hapus','Berita Acara berhasil di Hapus');
+        }
 
 }

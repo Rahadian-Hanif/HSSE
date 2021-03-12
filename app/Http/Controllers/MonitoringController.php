@@ -6,19 +6,49 @@ use Illuminate\Http\Request;
 use App\Models\Monitoring;
 use App\Models\SubmitSoal;
 
+use DB;
+
 class MonitoringController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $soal =  Monitoring::all();
-        return view('monitoringKesehatan',compact("soal"));
-
+        
+        $id = auth()->user()->id;
+        $tgl = date('Y-m-d');
+        $cek = SubmitSoal::where('id_user',$id)->where('tgl',$tgl)->first();
+        if ($cek){
+            return view('blank');
+        }else {
+            $soal =  Monitoring::all();
+            return view('monitoringKesehatan',compact("soal"));
+        }
+        
     }
 
     public function admin()
     {
-        // $soal =  Monitoring::all();
-        return view('admin/monitoringKesehatan');
+        $data = DB::table('monitoring_harian')
+                    ->join('users','users.id','=','monitoring_harian.id_user')
+                    ->select('users.nama','monitoring_harian.*')
+                    ->groupBy('id_user', 'tgl')
+                    ->get();
+        return view('admin/monitoringKesehatan',compact("data"));
+
+    }
+
+    public function view($id,$tgl)
+    {
+        $soal = DB::table('monitoring_harian')
+                    ->join('pertanyaan','pertanyaan.id','=','monitoring_harian.id_soal')
+                    ->select('monitoring_harian.*','pertanyaan.soal')
+                    ->where('monitoring_harian.id_user', $id)
+                    ->where('monitoring_harian.tgl', $tgl)
+                    ->get();
+        return view('admin/viewMonitoring',compact("soal"));
 
     }
 
@@ -29,24 +59,17 @@ class MonitoringController extends Controller
 
         foreach ($soal as $number) {
             $num = $number->id;
-
-            // $validate_array['$num'] = 'required';
-            // $this->validate($request, [
-            //     '$num' =>'required'
-            // ]);
             
-            // SubmitSoal::create([
-            //     'id_user'       => $id,
-            //     'tgl'           => date('Y-m-d'),
-            //     'id_soal'        => $num,
-            //     'jawaban'        => $request->$num,
-            // ]);
-            $a = $request->$num;
-            echo nl2br ("no $num $a \n");
+            SubmitSoal::create([
+                'id_user'       => $id,
+                'tgl'           => date('Y-m-d'),
+                'id_soal'        => $num,
+                'jawaban'        => $request->$num,
+            ]);
 
         };
         
-        // return back()
-        //     ->with('laporan_berhasil','Laporan Berhasil di Tambahkan');
+        return back()
+            ->with('laporan_berhasil','Laporan Berhasil di Tambahkan');
     }
 }

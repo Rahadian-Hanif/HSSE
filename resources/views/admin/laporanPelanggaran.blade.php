@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($soal as $data)
+                @foreach ($laporan as $data)
                 <tr>
                     <td>{{$data->tgl}}</td>
                     <td>{{$data->kepada}}</td>
@@ -29,8 +29,8 @@
                     <td>{{$data->deskripsi}}</td>
                     <td>
                     <div class="row">
-                        <a class="col mr-1 btn btn-danger btn-sm" href="hapusSks" role="button"><i class="fas fa-trash-alt"></i></a>
-                        <a class="col mr-1 btn btn-primary btn-sm" data-toggle="modal" href="#view" role="button"><i class="fas fa-print"></i></a>
+                        <a class="col mr-1 btn btn-danger btn-sm" href="hapusLaporanPelanggaran/{{$data->id}}" role="button"><i class="fas fa-trash-alt"></i></a>
+                        <a class="col mr-1 btn btn-primary btn-sm" href="generatePDF/{{$data->id}}" role="button"><i class="fas fa-print"></i></a>
                     </div>
                     </td>
                 </tr>

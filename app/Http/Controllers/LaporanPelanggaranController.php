@@ -4,9 +4,14 @@ namespace App\Http\Controllers;
 use App\Models\Pelanggaran;
 
 use Illuminate\Http\Request;
+use PDF;
 
 class LaporanPelanggaranController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         return view('laporanPelanggaran');
@@ -15,8 +20,8 @@ class LaporanPelanggaranController extends Controller
 
     public function admin()
     {
-        $soal =  Pelanggaran::all();
-        return view('admin/laporanPelanggaran',compact("soal"));
+        $laporan =  Pelanggaran::all();
+        return view('admin/laporanPelanggaran',compact("laporan"));
 
     }
 
@@ -45,7 +50,7 @@ class LaporanPelanggaranController extends Controller
             ]);
         
         return back()
-            ->with('laporan_berhasil','Laporan Berhasil di Tambahkan');
+            ->with('laporan_berhasil','Laporan berhasil ditambahkan');
             
 
     }
@@ -56,6 +61,12 @@ class LaporanPelanggaranController extends Controller
             Pelanggaran::where('id',$id)->delete();
             
             return back()
-            ->with('berhasil_hapus','File berhasil di Hapus');
+            ->with('berhasil_hapus','File berhasil dihapus');
         }
+
+    public function cetak($id)
+    {
+        $data = Pelanggaran::find($id);
+        return view('admin/export/printLaporanPelanggaran',$data);
+    }
 }

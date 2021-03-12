@@ -11,6 +11,10 @@ use DB;
 
 class SksController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
         $id = auth()->user()->id;
@@ -25,6 +29,7 @@ class SksController extends Controller
                 ->join('users','users.id','=','sks.id_user')
                 ->select('users.nama AS nama_user','sks.*')->get();
         return view('admin/sks',compact("sks"));
+        // echo $sks;
 
     }
 
@@ -57,8 +62,11 @@ class SksController extends Controller
 
         public function delete($id)
         {
+            // hapus file
+            $sks = Sks::where('id',$id)->first();
+            File::delete('upload/sks/'.$sks->nama);
             // hapus data
-            Pelanggaran::where('id',$id)->delete();
+            Sks::where('id',$id)->delete();
             
             return back()
             ->with('berhasil_hapus','File berhasil di Hapus');

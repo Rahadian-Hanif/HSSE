@@ -30,6 +30,8 @@ Route::get('monitoringKesehatan', [App\Http\Controllers\MonitoringController::cl
 
 Route::get('adminMonitoring', [App\Http\Controllers\MonitoringController::class, 'admin']);
 
+Route::get('viewMonitoring/{id}/{tgl}', [App\Http\Controllers\MonitoringController::class, 'view']);
+
 Route::post('submitMonitoring', [App\Http\Controllers\MonitoringController::class, 'submit']);
 
 Route::get('/sks', [App\Http\Controllers\SksController::class, 'index']);
@@ -46,8 +48,32 @@ Route::get('adminBeritaAcara', [App\Http\Controllers\BeritaAcaraController::clas
 
 Route::post('uploadBeritaAcara', [App\Http\Controllers\BeritaAcaraController::class, 'upload']);
 
+Route::get('HapusBeritaAcara/{id}', [App\Http\Controllers\BeritaAcaraController::class, 'delete']);
+
 Route::get('laporanPelanggaran', [App\Http\Controllers\LaporanPelanggaranController::class, 'index']);
 
 Route::get('adminLaporanPelanggaran', [App\Http\Controllers\LaporanPelanggaranController::class, 'admin']);
 
+Route::get('generatePDF/{id}', [App\Http\Controllers\LaporanPelanggaranController::class, 'cetak']);
+
 Route::post('uploadPelanggaran', [App\Http\Controllers\LaporanPelanggaranController::class, 'upload']);
+
+Route::get('hapusLaporanPelanggaran/{id}', [App\Http\Controllers\LaporanPelanggaranController::class, 'delete']);
+
+Route::get('profile', [App\Http\Controllers\ProfileController::class, 'index']);
+
+Route::get('adminProfile', [App\Http\Controllers\ProfileController::class, 'admin']);
+
+Route::post('updateProfile', [App\Http\Controllers\ProfileController::class, 'update']);
+
+Route::post('gantiPassword', [App\Http\Controllers\ProfileController::class, 'gantiPassword']);
+
+Route::get('dataPegawai', [App\Http\Controllers\DataPegawaiController::class, 'index']);
+
+Route::post('tambahPegawai', [App\Http\Controllers\DataPegawaiController::class, 'add']);
+
+Route::post('editPegawai/{id}', [App\Http\Controllers\DataPegawaiController::class, 'edit']);
+
+Route::get('hapusPegawai/{id}', [App\Http\Controllers\DataPegawaiController::class, 'hapus']);
+
+Route::get('userGuide', [App\Http\Controllers\UserGuideController::class, 'index']);

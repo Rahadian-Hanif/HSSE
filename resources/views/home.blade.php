@@ -50,7 +50,7 @@
         <!-- Sidebar - Brand -->
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('/home') }}">
             <div class="sidebar-brand-icon">
-            <img class="img-fluid" src="img/LOGO.png" alt="">
+            <img class="img-fluid" src="{{ asset('img/LOGO.png')}}" alt="">
             </div>
         </a>
 
@@ -96,7 +96,9 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Laporan</h6>
                 <a class="collapse-item" href="{{url('beritaAcara')}}">Berita Acara Kecelakaan</a>
-                <a class="collapse-item" href="{{url('laporanPelanggaran')}}">Pelanggaran</a>
+                @if(auth()->user()->level == "ketua divisi")
+                    <a class="collapse-item" href="{{url('laporanPelanggaran')}}">Pelanggaran</a>
+                @endif
             </div>
             </div>
         </li>
@@ -134,11 +136,15 @@
                 <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->nama}}</span>
-                    <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                    <img class="img-profile rounded-circle" src="{{ asset('img/profile.png')}}">
                 </a>
                 <!-- Dropdown - User Information -->
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{url('profile')}}">
+                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Profile
+                    </a>
+                    <a class="dropdown-item" href="{{url('userGuide')}}">
                     <i class="fas fa-question-circle fa-sm fa-fw mr-2 text-gray-400"></i>
                     User Guide
                     </a>

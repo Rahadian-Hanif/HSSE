@@ -23,7 +23,19 @@
 <body class="bg-gradient-primary" style="background-image: url({{ URL::asset('img/bg-lgn.png')}});">
 
   <div class="container">
-<img class="mb-lg-5 img-fluid" src="{{ URL::asset('img/LOGO.png')}}" alt="" width="200" height="60">
+    
+    <div class="row">
+      <div class="col">
+        <a href="{{ url('/')}}">
+          <img class="mb-lg-5 img-fluid" src="{{ URL::asset('img/LOGO.png')}}" alt="" width="200" height="60">
+        </a>
+      </div>
+      <div class="col text-right">
+        <a href="{{ url('/')}}">
+          <img class="mb-lg-5 img-fluid" src="{{ URL::asset('img/sebaya_logo.png')}}" alt="" width="200" height="60">
+        </a>
+      </div>
+    </div>
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
@@ -38,7 +50,11 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
                 <div class="p-5">
-
+@if ($message = Session::get('error'))
+    <div class="alert alert-danger">
+        {{ $message }}
+    </div>
+@endif
                 <form class="user" method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="form-group">
