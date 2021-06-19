@@ -26,7 +26,6 @@ class User extends Authenticatable
         'divisi',
         'alamat',
         'tlp',
-
     ];
 
     /**

@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Monitoring;
 use App\Models\SubmitSoal;
+use Illuminate\Support\Facades\DB;
 
-use DB;
+// use DB;
 
 class MonitoringController extends Controller
 {

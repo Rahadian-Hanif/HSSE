@@ -7,25 +7,25 @@
 </div>
 
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            {{ $message }}
-        </div>
-    @endif
+@if ($message = Session::get('success'))
+<div class="alert alert-success">
+    {{ $message }}
+</div>
+@endif
 
 <form action="uploadBeritaAcara" method="post" enctype="multipart/form-data">
-@csrf
+    @csrf
     <div class="card shadow-sm border-left-primary mb-4 text-gray-800">
         <div class="card-body">
             <P><strong>Jenis</strong></p>
-            @if($errors->has('jenis'))
-                <div class="text-danger">
-                    {{ $errors->first('jenis')}}
-                </div>
-            @endif
-            <p><input type='radio' name='jenis' value='ringan'> Ringan</p>
-            <p><input type='radio' name='jenis' value='sedang'> Sedang</p>
-            <p><input type='radio' name='jenis' value='berat'> Berat</p>
+            @error('jenis')
+            <div class=" alert-danger">{{ $message }}</div>
+            @enderror
+            <p><input type='radio' name='jenis' value='ringan' {{ old('jenis')==='ringan' ? 'checked' : '' }}> Ringan
+            </p>
+            <p><input type='radio' name='jenis' value='sedang' {{ old('jenis')==='sedang' ? 'checked' : '' }}> Sedang
+            </p>
+            <p><input type='radio' name='jenis' value='berat' {{ old('jenis')==='berat' ? 'checked' : '' }}> Berat</p>
         </div>
     </div>
 
@@ -34,66 +34,62 @@
 
             <div class='form-group'>
                 <P><strong>Waktu Kejadian</strong></p>
-                <input type="text" name="waktu" class="form-control datepicker shadow-sm" value="<?php echo date("m/d/Y");?>">
-                
-                @if($errors->has('waktu'))
-                    <div class="text-danger">
-                        {{ $errors->first('waktu')}}
-                    </div>
-                @endif
+                <input type="tex" name="waktu" value="{{ old('waktu') }}"  readonly
+                id="datepicker"
+                    class="form-control shadow-sm  @error('waktu') is-invalid @enderror"
+                    >
+                @error('waktu')
+                <div class=" alert-danger">{{ $message }}</div>
+                @enderror
 
                 <script type="text/javascript">
-                    $('.datepicker').datepicker();
+                    $('#datepicker').datepicker();
                 </script>
             </div>
 
             <div class='form-group'>
-            <P><strong>Tempat Kejadian</strong></p>
-            @if($errors->has('tempat'))
-                <div class="text-danger">
-                    {{ $errors->first('tempat')}}
-                </div>
-            @endif
-            <input type="text" name='tempat' class="form-control shadow-sm">
+                <P><strong>Tempat Kejadian</strong></p>
+                <input type="text" name='tempat' value="{{ old('tempat') }}"
+                    class="form-control shadow-sm @error('tempat') is-invalid @enderror">
+                @error('tempat')
+                <div class="alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class='form-group'>
-            <P><strong>Jumlah Korban</strong></p>
-            @if($errors->has('korban'))
-                <div class="text-danger">
-                    {{ $errors->first('korban')}}
-                </div>
-            @endif
-            <input type="number" name='korban' class="form-control shadow-sm" min="0" value="0">
+                <P><strong>Jumlah Korban</strong></p>
+                <input type="number" name='korban' value="{{ old('korban') }}"
+                    class="form-control shadow-sm @error('korban') is-invalid @enderror" min=" 0" value="0">
+                @error('korban')
+                <div class=" alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class='form-group'>
-            <P><strong>Upload Bukti</strong></p>
-                @if($errors->has('bukti'))
-                    <div class="text-danger">
-                        {{ $errors->first('bukti')}}
-                    </div>
-                @endif
+                <P><strong>Upload Bukti</strong></p>
                 <div>
-                    <input type="file" name='bukti' class="form-control-file shadow-sm">
+                    <input type="file" name='bukti'
+                        class="form-control-file shadow-sm @error('bukti') is-invalid @enderror">
+                    @error('bukti')
+                    <div class=" alert-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 
             <div class="form-group">
                 <P><strong>Kronologis</strong></p>
-                @if($errors->has('kronologi'))
-                    <div class="text-danger">
-                        {{ $errors->first('kronologi')}}
-                    </div>
-                @endif
-                <textarea class="form-control shadow-sm" name='kronologi' rows="3"></textarea>
+                <textarea class="form-control shadow-sm @error('kronologi') is-invalid @enderror" name='kronologi'
+                    rows="3">{{ old('kronologi') }}</textarea>
+                @error('kronologi')
+                <div class=" alert-danger">{{ $message }}</div>
+                @enderror
             </div>
 
             <div class="form-group text-right">
                 <input class="btn btn-primary" type="submit" value="Kirim">
             </div>
         </div>
-        
+
     </div>
 
 </form>
