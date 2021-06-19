@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 16 Feb 2021 pada 03.02
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.3.2
+-- Generation Time: Jun 19, 2021 at 08:29 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,23 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `berita_acara`
+-- Table structure for table `berita_acara`
 --
 
 CREATE TABLE `berita_acara` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `jenis` varchar(10) DEFAULT NULL,
   `waktu` date DEFAULT NULL,
   `tempat` varchar(30) DEFAULT NULL,
   `bukti` varchar(255) DEFAULT NULL,
-  `kronologi` text
+  `kronologi` text DEFAULT NULL,
+  `korban` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `berita_acara`
+--
+
+INSERT INTO `berita_acara` (`id`, `id_user`, `jenis`, `waktu`, `tempat`, `bukti`, `kronologi`, `korban`) VALUES
+(2, 5, 'ringan', '2021-06-24', 'Doloremque ipsum nis', '1623830061_Screenshot_(444).png', 'Laborum Ullamco vel', 6),
+(3, 5, 'sedang', '2021-07-09', 'Ex eos ipsam delenit', '1623830200_Screenshot_(501).png', 'Vel omnis rerum enim', 65);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `failed_jobs`
+-- Table structure for table `failed_jobs`
 --
 
 CREATE TABLE `failed_jobs` (
@@ -51,29 +59,36 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `laporan_pelanggaran`
+-- Table structure for table `laporan_pelanggaran`
 --
 
 CREATE TABLE `laporan_pelanggaran` (
-  `id` int(11) NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
   `id_user` int(11) DEFAULT NULL,
   `kepada` varchar(30) DEFAULT NULL,
   `bagian` varchar(25) DEFAULT NULL,
   `tgl` date DEFAULT NULL,
   `pelanggaran` varchar(30) DEFAULT NULL,
-  `deskripsi` text
+  `deskripsi` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `laporan_pelanggaran`
+--
+
+INSERT INTO `laporan_pelanggaran` (`id`, `id_user`, `kepada`, `bagian`, `tgl`, `pelanggaran`, `deskripsi`) VALUES
+(3, 5, 'mat', 'admin', '2021-07-01', 'Kurang memperhatikan kondisi d', 'Nihil rerum atque do');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `migrations`
+-- Table structure for table `migrations`
 --
 
 CREATE TABLE `migrations` (
@@ -83,7 +98,7 @@ CREATE TABLE `migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `migrations`
+-- Dumping data for table `migrations`
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
@@ -94,7 +109,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `monitoring_harian`
+-- Table structure for table `monitoring_harian`
 --
 
 CREATE TABLE `monitoring_harian` (
@@ -107,7 +122,7 @@ CREATE TABLE `monitoring_harian` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `password_resets`
+-- Table structure for table `password_resets`
 --
 
 CREATE TABLE `password_resets` (
@@ -119,18 +134,34 @@ CREATE TABLE `password_resets` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pertanyaan`
+-- Table structure for table `pertanyaan`
 --
 
 CREATE TABLE `pertanyaan` (
-  `id` int(11) NOT NULL,
-  `soal` text
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `soal` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `pertanyaan`
+--
+
+INSERT INTO `pertanyaan` (`id`, `soal`) VALUES
+(1, 'Saat ini saya merasakan demam > 37°C'),
+(2, 'Saat ini saya merasakan batuk'),
+(3, 'Saat ini saya merasakan pilek'),
+(4, 'Saat ini saya mengalami sakit tenggorokan (rasa tidak nyaman di tenggorokan bisa seperti panas, gatal, sulit menelan)'),
+(5, 'Saat ini saya merasa kesulitan bernafas / sesak nafas'),
+(6, 'aat ini saya merasa menggigil (tubuh gemetaran karena merasakan kedinginan)'),
+(7, 'Saat ini saya merasa sakit kepala (rasa sakit, berat atau seperti berputar)'),
+(8, 'Saat ini saya merasa lemas ( rasa tidak nyaman di tubuh seperti mudah lelah dan tidak bertenaga)'),
+(9, 'Saat ini saya merasa nyeri otot'),
+(10, 'Saat ini saya merasa mual atau muntah');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `sks`
+-- Table structure for table `sks`
 --
 
 CREATE TABLE `sks` (
@@ -143,7 +174,7 @@ CREATE TABLE `sks` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -155,7 +186,7 @@ CREATE TABLE `users` (
   `level` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `divisi` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `tlp` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -163,68 +194,72 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `email`, `username`, `email_verified_at`, `password`, `level`, `nama`, `divisi`, `alamat`, `tlp`, `remember_token`, `created_at`, `updated_at`) VALUES
 (4, 'admin@pdam.com', 'Admin', NULL, '$2y$10$0Wx8.S68IsCddzjkYFYr.O.q7KuPr6hRgD4J6zXINisqp0cxwHM36', 'admin', 'Admin', 'Admin', 'Jl Xyz', '08767676', NULL, '2021-02-12 23:38:20', '2021-02-12 23:38:20'),
-(5, 'user@pdam.com', 'Usser', NULL, '$2y$10$k9ZhBGjAHNYv9wgPK5/JbeMqS1SthwG8YVO74/VOWcu2yoy0Ptpc2', 'user', 'User', 'User', 'Jl xyz', '0867564', NULL, '2021-02-12 23:38:20', '2021-02-12 23:38:20');
+(5, 'user@pdam.com', 'Usser', NULL, '$2y$10$0Wx8.S68IsCddzjkYFYr.O.q7KuPr6hRgD4J6zXINisqp0cxwHM36', 'ketua divisi', 'User', 'User', 'Jl xyz', '0867564', NULL, '2021-02-12 23:38:20', '2021-02-12 23:38:20'),
+(12, 'pybecyja@mailinator.com', 'pozodyq', NULL, '$2y$10$Hg1QARXIw7gzYGu695TJGeiOgYzZrSVQ/beg98y0Ki1h9iTDJ6OGK', 'admin', 'andre', 'Pegawai', 'Dolor nostrum quidem', '3423536', NULL, '2021-06-15 12:14:36', '2021-06-15 12:14:36'),
+(13, 'tibix@pdam.com', 'jedof', NULL, '$2y$10$CaOreIdUZgIJQzLrJsBLWelJmKpIMEjBZImliMe/RPYM77sItXXeS', 'staff', 'yoki', 'Pegawai', 'Fugit id assumenda', '58467', NULL, '2021-06-15 12:15:13', '2021-06-15 12:15:13'),
+(14, 'wybafaqoti@pdam.com', 'tahufiwu', NULL, '$2y$10$9GyNxIQ.p7/1kJJv7SxxCufdXpM0Dqy.FtZGxB5zvsIZ5sKGhR/5m', 'staff', 'yusuf', 'Pegawai', 'At ipsum excepturi n', '324234', NULL, '2021-06-15 12:17:48', '2021-06-15 12:17:48'),
+(15, 'hiwoxev@mailinator.com', 'femyz', NULL, '$2y$10$XUiH8kMiVzg5zQmfxEuf2u2yi7hKmd/eZ4flXnPpGPOuRpdhHZd0C', 'admin', 'mat', 'Pegawai', 'Dolores id sed quo n', '23446457', NULL, '2021-06-15 12:26:15', '2021-06-15 12:26:15');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `berita_acara`
+-- Indexes for table `berita_acara`
 --
 ALTER TABLE `berita_acara`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `failed_jobs`
+-- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indeks untuk tabel `laporan_pelanggaran`
+-- Indexes for table `laporan_pelanggaran`
 --
 ALTER TABLE `laporan_pelanggaran`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `migrations`
+-- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `monitoring_harian`
+-- Indexes for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `password_resets`
+-- Indexes for table `password_resets`
 --
 ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
--- Indeks untuk tabel `pertanyaan`
+-- Indexes for table `pertanyaan`
 --
 ALTER TABLE `pertanyaan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `sks`
+-- Indexes for table `sks`
 --
 ALTER TABLE `sks`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
@@ -232,26 +267,44 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_username_unique` (`username`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `failed_jobs`
+-- AUTO_INCREMENT for table `berita_acara`
+--
+ALTER TABLE `berita_acara`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `migrations`
+-- AUTO_INCREMENT for table `laporan_pelanggaran`
+--
+ALTER TABLE `laporan_pelanggaran`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `pertanyaan`
+--
+ALTER TABLE `pertanyaan`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
